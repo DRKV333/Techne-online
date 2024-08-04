@@ -365,7 +365,7 @@ class TechneBase implements ITechne {
      */
     public initScenery(settings: Techne.ISettings) {
         var block = new THREE.CubeGeometry(16, 16, 16);
-        var blockTexture = THREE.ImageUtils.loadTexture("/images/textures/stone.png");
+        var blockTexture = THREE.ImageUtils.loadTexture("./images/textures/stone.png");
         blockTexture.minFilter = THREE.NearestFilter;
         blockTexture.magFilter = THREE.NearestFilter;
         var blockMaterial = new THREE.MeshBasicMaterial({ color: 0xff00ff, map: blockTexture });

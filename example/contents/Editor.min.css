@@ -257,21 +257,21 @@ li.ui-dragable-over {
   padding: 0 5px;
 }
 #new-cube {
-  background: url(../Images/cube.png);
+  background: url(../images/cube.png);
   -moz-background-size: 32px;
   background-size: 32px;
   width: 32px;
   height: 32px;
 }
 #new-group {
-  background: url(../Images/null.png);
+  background: url(../images/null.png);
   -moz-background-size: 32px;
   background-size: 32px;
   width: 32px;
   height: 32px;
 }
 #new-array {
-  background: url(../Images/array.png);
+  background: url(../images/array.png);
   -moz-background-size: 32px;
   background-size: 32px;
   width: 32px;
