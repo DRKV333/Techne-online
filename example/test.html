@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techne</title>
+    <link href="./contents/editor.min.css" rel="stylesheet">
+    <link href="./contents/bootstrap.min.css" rel="stylesheet">
+    <link href="./contents/bootstrap-wizard.css" rel="stylesheet">
+    <link href="./contents/font-awesome.min.css" rel="stylesheet">
+    <link href="./contents/Site.min.css" rel="stylesheet">
+
+</head>
+<body>
+<!-- Modal -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" ria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="exportLabel">Info</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Hello there!</p>
+                    <p>This is a very early alpha of Techne 2, there right now, there are lots of bugs, many of them severe.<br/>
+                    However, with this preview you are able to get a feeling for what's coming.</p>
+                    <p><b>IMPORTANT: YOU ARE NOT ABLE TO SAVE YOU MODELS</b><br/>
+                    As a side note, I have written an importer and exporter for the new Minecraft Block model format. Those should be working for the most part.<br/>
+                    So that could be one way to get your model out of this editor and back into it. Don't blame me if somethign doesn't work though. This version is not ready for produciton use.
+                    </p>
+                    <p>If you want to help out head over to the <a href="https://bitbucket.org/Brunner/techne-online" target="_blank">repository</a> over on <a href="https://bitbucket.org/Brunner/techne-online" target="_blank"><i class="fa fa-bitbucket"></i> bitbucket</a>.</p>
+                    <p>If you want to help and don't know what to do, the single most helpful thing you could do is write test-cases.<br/>
+                    In case that's not your thing, I'm also happy to accept pull-requests :)</p>
+                    <p>So long, and thanks for all the fish</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="exportLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <pre></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid body-content">
+
+        <div class="wrapmiddle">
+            <div id="Techne"></div>
+        </div>
+        <div>
+            <div id="nav-wrapper" class="navbar-static-top">
+                <div class="navbar navbar-inverse">
+                    <div class="container">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a class="dropdown-toggle" id="filemenu" data-toggle="dropdown">
+                                        Menu
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="filemenu">
+                                        <li role="presentation" class="text-divider">File</li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="save-model">Save</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="save-model-as">Save As</a></li>
+                                        <li role="presentation" class="text-divider">Import</li>
+                                        <li>
+                                            <a role="menuitem" tabindex="-1" href="#" id="import-block">Minecraft Block (json)</a>
+                                        </li>
+                                        <li role="presentation" class="text-divider">Export</li>
+                                        <li>
+                                            <a role="menuitem" tabindex="-1" href="#" id="export-block">Minecraft Block (json)</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="/">
+                                                Discard and close
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#" id="tool-move">
+                                        <img style="height:20px;" src="./Images/move.png" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="tool-resize">
+                                        <img style="height:20px;" src="./Images/resize.png" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="tool-rotate">
+                                        <img style="height:20px;" src="./Images/rotate.png" />
+                                    </a>
+                                </li>
+
+                                <li class="ribbon-tab-expand open">
+                                    <a href="#" data-target="techne-controls">Edit</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="control-tabs">
+                            <div id="techne-controls" class="dropdown-expand-content">
+                                <fieldset>
+                                    <ul>
+                                        <li>
+                                            <div id="new-cube"></div>
+                                        </li>
+                                        <li>
+                                            <div id="new-group"></div>
+                                        </li>
+                                        <li>
+                                            <div id="new-array"></div>
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                                <fieldset>
+                                    <legend>Name</legend>
+                                    <input type="text" id="edit-name" data-bind="valueUpdate: 'afterkeydown', value: controller.name" />
+                                </fieldset>
+                                <fieldset data-bind="visible: (!(current() instanceof Techne.Objects.EditableCollectionBase))">
+                                    <legend>Size</legend>
+                                    <ul>
+                                        <li>
+                                            <label for="edit-size-x">x</label>
+                                            <input class="spinner" type="number" id="edit-size-x" data-bind="value: controller.sizeX" />
+                                        </li>
+                                        <li>
+                                            <label for="edit-size-y">y</label>
+                                            <input class="spinner" type="number" id="edit-size-y" data-bind="value: controller.sizeY" />
+                                        </li>
+                                        <li>
+                                            <label for="edit-size-z">z</label>
+                                            <input class="spinner" type="number" id="edit-size-z" data-bind="value: controller.sizeZ" />
+                                        </li>
+                                    </ul>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Position</legend>
+                                    <ul>
+                                        <li>
+                                            <label for="edit-position-x">x</label>
+                                            <input type="number" id="edit-position-x" size="5" data-bind="value: controller.positionX" />
+                                        </li>
+                                        <li>
+                                            <label for="edit-position-y">y</label>
+                                            <input type="number" id="edit-position-y" size="5" data-bind="value: controller.positionY" />
+                                        </li>
+                                        <li>
+                                            <label for="edit-position-z">z</label>
+                                            <input type="number" id="edit-position-z" size="5" data-bind="value: controller.positionZ" />
+                                        </li>
+                                    </ul>
+                                </fieldset>
+
+                                <fieldset data-bind="visible: (!(current() instanceof Techne.Objects.EditableCollectionBase))">
+                                    <legend>Texture-Offset</legend>
+                                    <ul>
+                                        <li>
+                                            <label for="edit-textureOffset-x">x</label>
+                                            <input type="number" id="edit-textureOffset-x" size="5" data-bind="value: controller.textureOffsetX" />
+                                        </li>
+                                        <li>
+                                            <label for="edit-textureOffset-y">y</label>
+                                            <input type="number" id="edit-textureOffset-y" size="5" data-bind="value: controller.textureOffsetY" />
+                                        </li>
+                                    </ul>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Rotation</legend>
+                                    <ul>
+                                        <li>
+                                            <label for="edit-rotation-x">x</label>
+                                            <input type="number" id="edit-rotation-x" size="5" data-bind="value: controller.rotationX" />
+                                        </li>
+                                        <li>
+                                            <label for="edit-rotation-y">y</label>
+                                            <input type="number" id="edit-rotation-y" size="5" data-bind="value: controller.rotationY" />
+                                        </li>
+                                        <li>
+                                            <label for="edit-rotation-z">z</label>
+                                            <input type="number" id="edit-rotation-z" size="5" data-bind="value: controller.rotationZ" />
+                                        </li>
+                                    </ul>
+                                </fieldset>
+                                <fieldset data-bind="visible: current() instanceof Techne.Objects.Array">
+                                    <legend>Array</legend>
+                                    <ul>
+                                        <li>
+                                            <label for="array-radius">Radius</label>
+                                            <input type="number" id="array-radius" size="5" data-bind="value: controller.radius" />
+                                        </li>
+                                        <li>
+                                            <label for="array-count">Count</label>
+                                            <input type="number" id="array-count" size="5" data-bind="value: controller.count" />
+                                        </li>
+                                    </ul>
+                                </fieldset>
+
+                                <fieldset id="texture-container">
+                                    <legend>Texture</legend>
+                                    <img id="texture" src="data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" />
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modelTree">
+                <div data-bind="with: controller.history.stack.slice(0).reverse()">
+                    <ul data-bind="foreach: $data ">
+                            <li>
+                                <!-- ko if: actionType == 0 -->
+                                <span data-bind="click: $root.undo.bind($root, $parent.length - $index() - 1)">
+                                    Property Changed
+                                </span>
+                                <!-- /ko -->
+                                <!-- ko if: actionType == 1 -->
+                                <span data-bind="click: $root.undo.bind($root, $parent.length - $index() - 1)">
+                                    Removed Object
+                                </span>
+                                <!-- /ko -->
+                                <!-- ko if: actionType == 2 -->
+                                <span data-bind="click: $root.undo.bind($root, $parent.length - $index() - 1)">
+                                    Added Object
+                                </span>
+                                <!-- /ko -->
+                                <!-- ko if: actionType == 3 -->
+                                <span data-bind="click: $root.undo.bind($root, $parent.length - $index() - 1)">
+                                    Reordered Object
+                                </span>
+                                <!-- /ko -->
+                            </li>
+                        </ul>
+                    </div>
+                    <div data-bind="with: controller.redoHistory.stack.slice(0).reverse()">
+                        <ul data-bind="foreach: $data">
+                            <li>
+                                <!-- ko if: actionType == 0 -->
+                                <span data-bind="click: $root.redo.bind($root, $parent.length - $index() - 1)">
+                                    Property Changed
+                                </span>
+                                <!-- /ko -->
+                                <!-- ko if: actionType == 1 -->
+                                <span data-bind="click: $root.redo.bind($root, $parent.length - $index() - 1)">
+                                    Removed Object
+                                </span>
+                                <!-- /ko -->
+                                <!-- ko if: actionType == 2 -->
+                                <span data-bind="click: $root.redo.bind($root, $parent.length - $index() - 1)">
+                                    Added Object
+                                </span>
+                                <!-- /ko -->
+                                <!-- ko if: actionType == 3 -->
+                                <span data-bind="click: $root.redo.bind($root, $parent.length - $index() - 1)">
+                                    Reordered Object
+                                </span>
+                                <!-- /ko -->
+                            </li>
+                        </ul>
+                    </div>
+                <h2>Model Tree</h2>
+                <div class="scrollable">
+                    <ol id="modelTree" class="modelTree-List sortable" data-bind="sortable: { template: 'techneTemplate', data: observedChildren }"></ol>
+                </div>
+            </div>
+        </div>
+
+        <script id="test" type="text/html">
+            <span data-bind="text: name"></span>
+            <!--ko text: name--><!--/ko-->
+        </script>
+        <script type="text/html" id="techneTemplate">
+            <li draggable="true" data-bind="css: {selected: selected() == true }">
+                <!-- ko if: typeof(observedChildren) == "undefined" -->
+                <input type="checkbox" data-bind="click: $root.toggleVisibility.bind($root), attr: { id: uniqueId }" checked="checked" value="nothing" />
+                <label data-bind="attr: { for: uniqueId }"></label>
+                <span class="fa fa-times-circle" data-bind="click: $root.removeChild.bind($root)" />
+                <span data-bind="text: publicName, click: $root.selectObject.bind($root)"></span>
+                <!-- /ko -->
+                <!-- ko if: typeof(observedChildren) == "function" -->
+                <input type="checkbox" data-bind="click: $root.toggleVisibility, attr: { id: uniqueId }" checked="checked" value="nothing" />
+                <label data-bind="attr: { for: uniqueId }"></label>
+                <span class="fa fa-times-circle" data-bind="click: $root.removeChild.bind($root)" />
+                <i class="fa fa-folder-open-o"></i>
+                <span data-bind="text: publicName, click: $root.selectObject.bind($root)"></span>
+                <ol data-bind="sortable: { template: 'techneTemplate', data: observedChildren }">
+                    <!-- ko if: observedChildren().length == 0 -->
+                    <li class="empty">empty</li>
+                    <!-- /ko -->
+                </ol>
+                <!-- /ko -->
+            </li>
+        </script>
+    </div>
+
+    <script type="text/javascript" src="./scripts/Pixi-1.4.1.js"></script>
+    <script type="text/javascript" src="./scripts/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="./scripts/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript" src="./scripts/amplify.js"></script>
+    <script type="text/javascript" src="./scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="./scripts/knockout-3.0.0.js"></script>
+    <script type="text/javascript" src="./scripts/knockout-sortable.js"></script>
+    <script type="text/javascript" src="./scripts/three.js"></script>
+    <script type="text/javascript" src="./scripts/FileSaver.js"></script>
+    <script type="text/javascript" src="./scripts/orbitcontrols.js"></script>
+    <script type="text/javascript" src="../build/techne-editor.js"></script>"
+
+    <script type="text/javascript">
+        $(function () {
+            var techne = new Techne.Editor();
+            window.techne = techne;
+            techne.init({
+                noRotate: false,
+                noPan: true,
+                noZoom: false,
+
+                autoRotate: false,
+                autoRotateSpeed: 2.0,
+
+                showGrid: true,
+                showRoom: false,
+                afterInit: function () {
+                    ko.applyBindings(window.techne);
+                }
+            });
+            techne.animate(techne);
+
+            $("#tool-rotate").click(function() {
+                window.techne.changeTool("rotate");
+            });
+            $("#tool-move").click(function() {
+                window.techne.changeTool("move");
+            });
+            $("#tool-resize").click(function() {
+                window.techne.changeTool("resize");
+            });
+
+            $("#new-cube").click(function() {
+                var cube = window.techne.createCube("new cube", [1, 1, 1], [0, 0, 0], [0, 0, 0], [0, 0]);
+                window.techne.addChild(cube);
+            });
+            $("#new-group").click(function() {
+                var nullElement = window.techne.createNullElement();
+                window.techne.addChild(nullElement);
+            });
+            $("#new-array").click(function() {
+                var arr = new Techne.Objects.Array("Array");
+                window.techne.addChild(arr);
+            });
+            $("#export-java").click(function() {
+                $("body").append("<div id=\"fade\" class=\"black-overlay\"></div>").append("<div class=\"modal\"><pre data-bind=\"template: {name: 'javaTemplate', data: model}\"></pre></div>")
+
+                var elem = $("body > *").not(".modal")
+                $("#fade").fadeIn();
+                elem.on("mousedown", function () {
+                    $("#fade").fadeOut().remove();
+                    $(".modal").remove();
+                    elem.off("mousedown");
+                    elem = undefined;
+                });
+
+                ko.applyBindings(window.techne);
+            });
+
+            $("#import-block").click(function() {
+                var fileinput = $("<input type=\"file\" />");
+                fileinput.on("change", function(e) {
+                    var file = e.target.files[0];
+                    if (file) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            var content = JSON.parse(e.target.result);
+                            window.techne.importMinecraftBlock(content);
+                        }
+                        reader.readAsText(file);
+                    } else {
+                        alert("Failed to load file");
+                    }
+                });
+                fileinput.click();
+            });
+
+            $("#import-cs").click(function() {
+                var fileinput = $("<input type=\"file\" />");
+                fileinput.on("change", function(e) {
+                    var file = e.target.files[0];
+                    if (file) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            window.techne.importCraftStudioBlock(e.target.result);
+                        }
+                        reader.readAsArrayBuffer(file);
+                    } else {
+                        alert("Failed to load file");
+                    }
+                });
+                fileinput.click();
+            });
+
+            $("#export-block").click(function() {
+                var result = JSON.stringify(window.techne.exportMinecraftBlock());
+                var blob = new Blob([result], {type: "application/json"});
+                                     
+                window.saveAs(blob, "MinecraftModel.json");
+                //$("#exportLabel").text("Minecraft Block (json)");
+                //$("#exportModal pre").text(result);
+                //$('#exportModal').modal();
+            });
+
+            $(".ribbon-tab-expand a").click(function() {
+                $(".ribbon-tab-expand").removeClass("open");
+                $(".ribbon-tab").hide();
+
+                var target = $("#" + $(this).data("target"));
+                target.show();
+                $(this.parentElement).addClass("open");
+            });
+
+            $("#noticeModal").modal();
+        });
+
+    </script>
+
+</body>
+</html>

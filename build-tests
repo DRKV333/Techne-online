@@ -1,0 +1,24 @@
+--target ES5
+--removeComments
+--out ./tests/specs.js
+
+./typings/jasmine/jasmine.d.ts
+
+./typings/jquery/jquery.d.ts
+./typings/amplifyjs/amplifyjs.d.ts
+./typings/knockout/knockout.d.ts
+./typings/knockout.mapping/knockout.mapping.d.ts
+
+./typings/pixi/pixi.d.ts
+./typings/requirejs/require.d.ts
+./typings/threejs/three.d.ts
+./typings/threejs/orbitcontrols.d.ts
+
+./build/techne-editor.d.ts
+
+./tests/mock/Editor.ts
+
+./tests/specs/File/importer.ts
+./tests/specs/File/ImportExport.ts
+./tests/specs/Handler/MouseHandler.ts
+./tests/specs/Controller.ts

@@ -1,0 +1,7 @@
+syntax: glob
+src/*.map
+src/*.js
+src/**.js
+src/**.map
+tests/specs/**.js
+**.orig

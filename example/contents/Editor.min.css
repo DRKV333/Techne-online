@@ -1,0 +1,280 @@
+/*@border-radius-base:             4px;
+@border-radius-large:            6px;
+@border-radius-small:            3px;*/
+body {
+  padding: 0 !important;
+}
+.body-content {
+  padding: 0 !important;
+}
+#nav-wrapper {
+  width: 100%;
+  height: 30px;
+}
+.navbar {
+  height: 30px;
+  min-height: 30px;
+}
+.techne-controls {
+  width: 285px;
+  background-color: rgba(207, 207, 207, 0.5);
+  position: absolute;
+  bottom: 0px;
+  top: 30px;
+  left: 0px;
+  padding-left: 15px;
+}
+.techne-controls:before,
+.techne-controls:after {
+  content: " ";
+  display: table;
+}
+.techne-controls:after {
+  clear: both;
+}
+.controls #edit-name {
+  width: 240px;
+}
+.controls input {
+  /*float: left;*/
+  width: 50px;
+}
+.controls br {
+  clear: both;
+}
+#Techne {
+  /*margin-right:206px;
+   margin-left:290px;*/
+}
+.content-wrapper {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+.modelTree {
+  position: absolute;
+  right: 0px;
+  width: 350px;
+  background-color: rgba(207, 207, 207, 0.5);
+  bottom: 0px;
+  top: 30px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.modelTree li {
+  list-style: none;
+  cursor: default;
+}
+.wrapmiddle {
+  /*float: left;*/
+  width: 100%;
+  background-color: #ffffff;
+}
+body {
+  border: none;
+  overflow: hidden;
+}
+footer {
+  position: absolute;
+  bottom: -30px;
+}
+header .content-wrapper {
+  padding-top: 0px;
+}
+#body {
+  position: absolute;
+  bottom: 70px;
+  top: 30px;
+  left: 0px;
+  right: 0px;
+}
+.main-content {
+  background: none;
+  padding-top: 0px;
+}
+#container {
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+#texture {
+  width: 100%;
+  display: block;
+  image-rendering: -moz-crisp-edges;
+  /* Firefox */
+  image-rendering: -o-crisp-edges;
+  /* Opera */
+  image-rendering: optimize-contrast;
+  image-rendering: -webkit-optimize-contrast;
+  /* Webkit (non-standard naming) */
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+  /* IE (non-standard property) */
+}
+h2 {
+  background: #428bca;
+  color: white;
+  font-size: 22px;
+  font-weight: normal;
+  margin: 0;
+  padding: 2px 20px;
+  border-top: solid white 2px;
+}
+#texture-container {
+  width: 128px;
+  overflow: hidden;
+}
+#modelTree input[type=checkbox] {
+  display: none;
+}
+#modelTree input[type="checkbox"] + label:before {
+  font-family: 'FontAwesome';
+  /*padding-right: 3px;
+  font-size: 20px;*/
+  content: "\f070";
+}
+#modelTree input[type="checkbox"]:checked + label:before {
+  content: "\f06e";
+  /* check */
+}
+/*input[type=checkbox] + label
+   {
+       background-image: url("/Images/Techne/eye_closed.png");
+       background-size: 16px;
+       height: 16px;
+       width: 16px;
+       display:inline-block;
+       padding: 0 0 0 0px;
+   }
+   
+   input[type=checkbox]:checked + label
+    {
+        background-image: url("/Images/Techne/eye_open.png");
+        background-size: 16px;
+        height: 16px;
+        width: 16px;
+        display:inline-block;
+        padding: 0 0 0 0px;
+    }*/
+.selected {
+  background: #5F8B9E;
+  font-weight: bold;
+  color: white;
+}
+.modal {
+  overflow: scroll;
+}
+.ui-spinner {
+  background: white !important;
+}
+#techne-canvas {
+  background: white;
+}
+/*#nav-wrapper {
+       position: absolute;
+   }*/
+body.dragging,
+body.dragging * {
+  cursor: move !important;
+}
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+ol.sortable li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ol.sortable li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+#modelTree {
+  padding-left: 15px;
+}
+ol:empty:after {
+  content: "<empty>";
+  font-size: 12px;
+}
+li.ui-dragable-over {
+  background: rgba(0, 169, 255, 0.09);
+}
+.scrollable {
+  overflow-x: auto;
+  overflow-y: scroll;
+}
+#select-project {
+  z-index: 4;
+  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#select-project div {
+  text-align: center;
+}
+#control-tabs {
+  background: #6fb3e0;
+  color: white;
+}
+#control-tabs input[type='number'] {
+  width: 100px;
+}
+#control-tabs label {
+  display: inline-block;
+  width: 10px;
+  text-align: right;
+}
+#control-tabs div:before,
+#control-tabs div:after {
+  content: " ";
+  display: table;
+}
+#control-tabs div:after {
+  clear: both;
+}
+#control-tabs fieldset {
+  float: left;
+}
+#control-tabs legend {
+  font-size: 18px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  color: white;
+}
+#control-tabs ul {
+  list-style: none;
+  padding: 0 5px;
+}
+#new-cube {
+  background: url(../Images/cube.png);
+  -moz-background-size: 32px;
+  background-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+#new-group {
+  background: url(../Images/null.png);
+  -moz-background-size: 32px;
+  background-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+#new-array {
+  background: url(../Images/array.png);
+  -moz-background-size: 32px;
+  background-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+/*# sourceMappingURL=Editor.css.map */

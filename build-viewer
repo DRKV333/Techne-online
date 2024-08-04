@@ -1,0 +1,31 @@
+--module amd
+--removeComments
+--declaration
+--sourcemap
+--target ES5
+--out ./build/techne-viewer.js
+
+./typings/jquery/jquery.d.ts
+./typings/knockout/knockout.d.ts
+./typings/knockout.mapping/knockout.mapping.d.ts
+./typings/pixi/pixi.d.ts
+./typings/requirejs/require.d.ts
+./typings/threejs/three.d.ts
+./typings/threejs/orbitcontrols.d.ts
+
+./src/File/Importer/IImporter.ts
+./src/File/Importer/IImporter.ts
+./src/File/Importer/IImportResult.ts
+./src/Objects/IObject.ts
+./src/Objects/IVisibleObject.ts
+./src/ISettings.ts
+
+./src/Objects/Editables/IEditableObject.ts
+./src/Objects/Editables/IVisibleEditableObject.ts
+./src/Techne.ts
+./src/Helper/TextureHelper.ts
+./src/Objects/NullElement.ts
+./src/Objects/Plane.ts
+./src/Objects/Cube.ts
+./src/File/Importer/TechneImporter.ts
+./src/Viewer.ts"
