@@ -335,9 +335,10 @@ class TechneBase implements ITechne {
         this.modelMaterial = new THREE.MeshLambertMaterial({ color: 0xFFFFFF, map: this.modelTexture });
         this.modelMaterial.transparent = true;
 
-        this.textureElement.onload = () => {
-            this.updateTexture();
-        }
+        // TODO: This might be important, but is causes an infinite loop.
+        // this.textureElement.onload = () => {
+        //     this.updateTexture();
+        // }
 
         if (img != null && img != undefined) {
             this.textureElement.src = img.src;
