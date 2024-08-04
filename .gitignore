@@ -5,3 +5,4 @@ src/**.map
 tests/specs/**.js
 **.orig
 node_modules
+tests/build

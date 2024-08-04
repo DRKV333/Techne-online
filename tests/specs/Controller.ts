@@ -13,102 +13,116 @@ describe("History tests", () => {
     var techne;
 
     beforeEach(() => {
-    	techne = new Techne.Editor();
-    	techne.init({});
+        techne = new Techne.Editor();
+        techne.init({});
         controller = techne.controller;
     });
 
     it("add a new element and then undo it", () => {
         var elem = techne.createCube("new cube", [1, 1, 1], [0, 0, 0], [0, 0, 0], [0, 0]);
-    	var elemsCount = techne.scene.children.length;
-    	techne.addElement(elem);
+        var elemsCount = techne.scene.children.length;
+        techne.addChild(elem);
 
-    	expect(controller.history.stack.length).toEqual(1);
-    	expect(controller.redoHistory.stack.length).toEqual(0);
-    	expect(techne.scene.children.length).toEqual(elemsCount + 1);
+        expect(controller.history.stack().length).toEqual(1);
+        expect(controller.redoHistory.stack().length).toEqual(0);
+        expect(techne.scene.children.length).toEqual(elemsCount + 1);
 
-    	techne.undo();
+        techne.undo();
 
-    	expect(controller.history.stack.length).toEqual(0);
-    	expect(controller.redoHistory.stack.length).toEqual(1);
-    	expect(techne.scene.children.length).toEqual(elemsCount);
+        expect(controller.history.stack().length).toEqual(0);
+        expect(controller.redoHistory.stack().length).toEqual(1);
+        expect(techne.scene.children.length).toEqual(elemsCount);
     });
 
     it("add a new element, undo then redo", () => {
         var elem = techne.createCube("new cube", [1, 1, 1], [0, 0, 0], [0, 0, 0], [0, 0]);
-    	var elemsCount = techne.scene.children.length;
-    	techne.addElement(elem);
+        var elemsCount = techne.scene.children.length;
+        techne.addChild(elem);
 
-    	expect(controller.history.stack.length).toEqual(1);
-    	expect(controller.redoHistory.stack.length).toEqual(0);
-    	expect(techne.scene.children.length).toEqual(elemsCount + 1);
+        expect(controller.history.stack().length).toEqual(1);
+        expect(controller.redoHistory.stack().length).toEqual(0);
+        expect(techne.scene.children.length).toEqual(elemsCount + 1);
 
-    	techne.undo();
+        techne.undo();
 
-    	expect(controller.history.stack.length).toEqual(0);
-    	expect(controller.redoHistory.stack.length).toEqual(1);
-    	expect(techne.scene.children.length).toEqual(elemsCount);
+        expect(controller.history.stack().length).toEqual(0);
+        expect(controller.redoHistory.stack().length).toEqual(1);
+        expect(techne.scene.children.length).toEqual(elemsCount);
 
-    	techne.redo();
+        techne.redo();
 
-    	expect(controller.history.stack.length).toEqual(1);
-    	expect(controller.redoHistory.stack.length).toEqual(0);
-    	expect(techne.scene.children.length).toEqual(elemsCount + 1);
+        expect(controller.history.stack().length).toEqual(1);
+        expect(controller.redoHistory.stack().length).toEqual(0);
+        expect(techne.scene.children.length).toEqual(elemsCount + 1);
     });
 
 
     it("adds a new element, changes settings, then undos them all.", () => {
         var elem = techne.createCube("new cube", [1, 1, 1], [0, 0, 0], [0, 0, 0], [0, 0]);
-    	var elemsCount = techne.scene.children.length;
-    	techne.addElement(elem);
+        var elemsCount = techne.scene.children.length;
+        techne.addChild(elem);
 
-    	expect(controller.history.stack.length).toEqual(1);
-    	expect(controller.redoHistory.stack.length).toEqual(0);
-    	expect(techne.scene.children.length).toEqual(elemsCount + 1);
+        expect(controller.history.stack().length).toEqual(1);
+        expect(controller.redoHistory.stack().length).toEqual(0);
+        expect(techne.scene.children.length).toEqual(elemsCount + 1);
 
-    	controller.setSelected(elem);
+        controller.setSelected(elem);
 
-    	controller.sizeX(2);
-    	controller.sizeX(3);
-    	controller.sizeX(4);
+        controller.sizeX(2);
+        controller.sizeX(3);
+        controller.sizeX(4);
 
-    	expect(controller.history.stack.length).toEqual(2);
+        expect(controller.history.stack().length).toEqual(2);
 
-    	controller.sizeY(2);
-    	controller.sizeY(3);
-    	controller.sizeY(4);
+        controller.sizeY(2);
+        controller.sizeY(3);
+        controller.sizeY(4);
 
-    	expect(controller.history.stack.length).toEqual(3);
+        expect(controller.history.stack().length).toEqual(3);
 
-    	controller.sizeX(5);
+        controller.sizeX(5);
 
+        expect(elem.scale.x).toEqual(5);
+        expect(elem.scale.y).toEqual(4);
+        
+        techne.undo();
+        expect(controller.history.stack().length).toEqual(3);
+        expect(elem.scale.x).toEqual(4);
+        expect(elem.scale.y).toEqual(4);
 
-    	expect(elem.scale.x).toEqual(5);
-    	expect(elem.scale.y).toEqual(4);
-    	techne.undo();
-    	expect(elem.scale.x).toEqual(4);
-    	expect(elem.scale.y).toEqual(4);
-    	techne.redo();
-    	expect(elem.scale.x).toEqual(5);
-    	expect(elem.scale.y).toEqual(4);
-    	techne.undo();
-    	expect(elem.scale.x).toEqual(4);
-    	expect(elem.scale.y).toEqual(4);
-    	techne.undo();
-    	expect(elem.scale.x).toEqual(4);
-    	expect(elem.scale.y).toEqual(1);
-    	techne.undo();
-    	expect(elem.scale.y).toEqual(1);
-    	expect(elem.scale.y).toEqual(1);
-    	techne.redo();
-    	expect(elem.scale.x).toEqual(4);
-    	expect(elem.scale.y).toEqual(1);
-    	techne.redo();
-    	expect(elem.scale.x).toEqual(4);
-    	expect(elem.scale.y).toEqual(4);
-    	techne.redo();
-    	expect(elem.scale.x).toEqual(5);
-    	expect(elem.scale.y).toEqual(4);
-    	
+        techne.redo();
+        expect(controller.history.stack().length).toEqual(4);
+        expect(elem.scale.x).toEqual(5);
+        expect(elem.scale.y).toEqual(4);
+
+        techne.undo();
+        expect(controller.history.stack().length).toEqual(3);
+        expect(elem.scale.x).toEqual(4);
+        expect(elem.scale.y).toEqual(4);
+
+        techne.undo();
+        expect(controller.history.stack().length).toEqual(2);
+        expect(elem.scale.x).toEqual(4);
+        expect(elem.scale.y).toEqual(1);
+
+        techne.undo();
+        expect(controller.history.stack().length).toEqual(1);
+        expect(elem.scale.y).toEqual(1);
+        expect(elem.scale.y).toEqual(1);
+
+        techne.redo();
+        expect(controller.history.stack().length).toEqual(2);
+        expect(elem.scale.x).toEqual(4);
+        expect(elem.scale.y).toEqual(1);
+
+        techne.redo();
+        expect(controller.history.stack().length).toEqual(3);
+        expect(elem.scale.x).toEqual(4);
+        expect(elem.scale.y).toEqual(4);
+
+        techne.redo();
+        expect(controller.history.stack().length).toEqual(4);
+        expect(elem.scale.x).toEqual(5);
+        expect(elem.scale.y).toEqual(4);
     });
 });
