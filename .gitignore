@@ -6,3 +6,4 @@ tests/specs/**.js
 **.orig
 node_modules
 tests/build
+build

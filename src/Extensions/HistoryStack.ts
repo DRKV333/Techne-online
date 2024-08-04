@@ -17,6 +17,7 @@ module Techne.Extensions {
             // if this we are modifying the same property
             if (peek &&
                 peek.element == elem.element &&
+                //peek.old != elem.new &&
                 peek.element != null &&
                 peek.element != undefined &&
                 (   !peek.propertyChain ||
