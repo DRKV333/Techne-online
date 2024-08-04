@@ -30,6 +30,8 @@ module Techne.Mock {
 
     textureElement: HTMLImageElement;
 
+    observedChildren: KnockoutObservableArray<Objects.IEditableObject>;
+
     /**
      * The actual render-loop
      */
@@ -167,5 +169,8 @@ module Techne.Mock {
 
         redo(): void{ }
         undo(): void{ }
+
+        copy(): void { }
+        paste(): void { }
 	}
 }

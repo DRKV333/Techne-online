@@ -20,7 +20,7 @@ module Techne.Objects {
         /*
          * return true if this element is rotated
          */
-        isRotated(): void;
+        isRotated(): boolean;
         /*
          * This element's position in minecraft coordinates
          */

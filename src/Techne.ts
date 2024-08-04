@@ -260,7 +260,9 @@ class TechneBase implements ITechne {
         var nullElement = new THREE.Object3D();
         nullElement.name = "Grid";
 
-        var material = new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2 });
+        var material = new THREE.LineBasicMaterial({ color: 0x000000 });
+        material.opacity = 0.2;
+
         for (var i = 0; i < 22; i++) {
             var line = new THREE.Line(geometry, material);
             line.position.y = 24;
@@ -330,7 +332,8 @@ class TechneBase implements ITechne {
         this.modelTexture.minFilter = THREE.NearestFilter;
         this.modelTexture.magFilter = THREE.NearestFilter;
 
-        this.modelMaterial = new THREE.MeshLambertMaterial({ color: 0xFFFFFF, map: this.modelTexture, transparent: true });
+        this.modelMaterial = new THREE.MeshLambertMaterial({ color: 0xFFFFFF, map: this.modelTexture });
+        this.modelMaterial.transparent = true;
 
         this.textureElement.onload = () => {
             this.updateTexture();

@@ -17,6 +17,8 @@ module Techne.Objects {
         public logicalParent: Objects.IEditableCollection;
 
         constructor(name: string, size: number[], position: number[], rotation: number[], textureOffset: number[], material: THREE.Material) {
+            super(name, size, position, rotation, textureOffset, material);
+
             this.observedName = ko.observable<string>();
             this.selected = ko.observable(false);
 
@@ -33,8 +35,6 @@ module Techne.Objects {
 
             this.publicName(name || "new cube");
             this.name = this.publicName();
-
-            super(name, size, position, rotation, textureOffset, material);
         }
 
         /*

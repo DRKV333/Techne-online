@@ -29,13 +29,13 @@ module Techne.Tools {
             this.add(this.startLine);
 
             var areaGeometry = new THREE.CircleGeometry(8, 25, 0, 3);
+            var areaMaterial = new THREE.MeshBasicMaterial({ color: 0xAAAAAA });
+            areaMaterial.side = THREE.DoubleSide;
+            areaMaterial.opacity = 0.75;
+
             this.area = new THREE.Mesh(
                 areaGeometry,
-                new THREE.MeshBasicMaterial({
-                    color: 0xAAAAAA,
-                    opacity: 0.75,
-                    side: THREE.DoubleSide
-                })
+                areaMaterial
                 );
             this.area.position = this.center;
             if (this.axis == Techne.Tools.Axis.X) {
@@ -64,7 +64,8 @@ module Techne.Tools {
             context.fillStyle = "black";
 
             this.textTexture = new THREE.Texture( this.textCanvas );
-            var textMat = new THREE.MeshBasicMaterial( { map: this.textTexture, transparent: true } );
+            var textMat = new THREE.MeshBasicMaterial( { map: this.textTexture } );
+            textMat.transparent = true;
             textMat.needsUpdate = true;
 
             this.billboard = new THREE.Mesh(

@@ -5,11 +5,11 @@ module Techne.Objects {
         public textureOffset: THREE.Vector2;
 
         constructor(name: string, size: number[], position: number[], rotation: number[], textureOffset: number[], material: THREE.Material) {
-            this.minecraftPosition = new THREE.Vector3(position[0], position[1], position[2]);
-            this.textureOffset = new THREE.Vector2(textureOffset[0], textureOffset[1]);
-
             var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
             super(cubeGeometry, material);
+
+            this.minecraftPosition = new THREE.Vector3(position[0], position[1], position[2]);
+            this.textureOffset = new THREE.Vector2(textureOffset[0], textureOffset[1]);
 
             this.castShadow = this.receiveShadow = true;
             this.rotation.set(rotation[0], rotation[1], rotation[2], "YZX");
@@ -81,7 +81,8 @@ module Techne.Objects {
         public updateTexture() {
         }
 
-        public isRotated() {
+        public isRotated(): boolean {
+            return false;
         }
 
         public techneClone(): Cube {

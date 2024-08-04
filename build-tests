@@ -1,6 +1,7 @@
 --target ES5
 --removeComments
---out ./tests/specs.js
+--outfile ./tests/build/specs.js
+--outdir ./tests/build/
 
 ./typings/jasmine/jasmine.d.ts
 
@@ -16,9 +17,9 @@
 
 ./build/techne-editor.d.ts
 
-./tests/mock/Editor.ts
+./tests/Mock/Editor.ts
 
-./tests/specs/File/importer.ts
+./tests/specs/File/Importer.ts
 ./tests/specs/File/ImportExport.ts
 ./tests/specs/Handler/MouseHandler.ts
 ./tests/specs/Controller.ts

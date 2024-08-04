@@ -3,7 +3,8 @@
 --sourcemap
 --declaration
 --target ES5
---out ./build/techne-editor.js
+--outfile ./build/techne-editor.js
+--outdir ./build
 
 ./typings/jquery/jquery.d.ts
 ./typings/amplifyjs/amplifyjs.d.ts

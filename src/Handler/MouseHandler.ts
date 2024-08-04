@@ -106,13 +106,13 @@ module Techne.Handler {
             var timeout = 0;
             var clicked = false;
 
-            return (e) => {
+            return (...args) => {
                 //e.preventDefault();
 
                 if (clicked) {
                     clearTimeout(timeout);
                     clicked = false;
-                    return handler.apply(this, arguments);
+                    return handler.apply(this, args);
                 } else {
                     clicked = true;
                     timeout = setTimeout(() => {

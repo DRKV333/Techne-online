@@ -3,7 +3,8 @@
 --declaration
 --sourcemap
 --target ES5
---out ./build/techne-viewer.js
+--outfile ./build/techne-viewer.js
+--outdir ./build
 
 ./typings/jquery/jquery.d.ts
 ./typings/knockout/knockout.d.ts
@@ -28,4 +29,4 @@
 ./src/Objects/Plane.ts
 ./src/Objects/Cube.ts
 ./src/File/Importer/TechneImporter.ts
-./src/Viewer.ts"
+./src/Viewer.ts

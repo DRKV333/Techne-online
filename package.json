@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build-editor": "npx tsc @build-editor",
+    "build-tests": "npx tsc @build-tests"
+  },
+  "dependencies": {
+    "typescript": "^5.5.4"
+  }
+}

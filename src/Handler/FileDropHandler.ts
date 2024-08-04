@@ -74,7 +74,7 @@ module Techne.Handler {
                 reader.onload = ((aFile) => {
                     var file = aFile;
                     return (e) => {
-                        $("#texture").attr("src", e.target.result).attr("title", encodeURI(file.name));
+                        $("#texture").attr("src", <string>e.target.result).attr("title", encodeURI(file.name));
                         this.techne.updateTexture();
                     };
                 })(file);

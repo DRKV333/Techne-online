@@ -117,7 +117,9 @@ module Techne.Tools {
         /*
          * Called as long as the tool is performing an action
          */
-        public update() { }
+        public update(): boolean {
+            return true;
+        }
         /*
          * Pretty much a onMouseEnter
          */

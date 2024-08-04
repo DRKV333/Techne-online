@@ -106,7 +106,7 @@ module Techne.Objects {
         public hasRotatedChild(): boolean {
             var children = this.observedChildren();
             return !children.map((child) => {
-                children.map((child) => {
+                return children.map((child) => {
                     if (child instanceof EditableCollectionBase)
                         if ((<Objects.IEditableCollection><any>child).hasRotatedChild())
                             return true;
